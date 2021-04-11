@@ -17,7 +17,7 @@ This document contains my (hawthornbunny's) findings so far, and is being period
 ## Overview of the challenge
 The main objective is to figure out which account on Fimfiction is an alternate account belonging to TheMajorTechie. (To be precise, it is his "second alt" since he already has a known one, [TechnoNerd](https://www.fimfiction.net/user/301253/TechnoNerd).
 
-To do this, TheMajorTechie is posting hints nearly every day which point to "fragments". Each fragment is a piece of a large hex dump. When the fragments are decoded to bytes and assembled, they will presumably form a file which gives the name of the alt.
+To do this, TheMajorTechie is posting hints nearly every day which point to "fragments". Each fragment is an Intel HEX file containing encoded binary data. When all of the fragments are found, decoded to bytes, and assembled, they will presumably form a file which gives the name of the TheMajorTechie's alternate account.
 
 ## Fragments
 There are 41 fragments in total. We know this because TheMajorTechie has been posting a list of integers with each new hint, and the list gets longer by one each time. The integers generally match the file names of the fragments, indicating a one-to-one correspondence. (This is also one way to identify a hint post - if it has the fragment list, it's a hint to a fragment. The list can also be used to figure out which fragment the hint is for).
@@ -28,26 +28,26 @@ Based on the pattern that has been revealed so far, the complete fragment list w
 
 From this we can conclude that there are 41 fragments in the final file, and that the last fragment to be posted will be the 21st in the file.
 
-### Identifying fragments
-There are 2 ways a fragment can be referred to - by their chronological index (ie. the order in which they were posted) or their positional index (where they are in the final file). It doesn't really matter which we use since we can freely convert one to the other, but it's important to be clear about which identifier we're using to avoid confusion.
+### Referencing fragments
+There are 2 ways a fragment can be referred to - by its chronological index (ie. when it was posted) or its positional index (where it is in the final file). It doesn't really matter which index we use since we can freely convert one to the other - however, it's important to be clear about which identifier we're using to avoid confusion.
 
 I've chosen to use the prefix C for chronological indices, and P for positional indices. Therefore, the first posted fragment is C1, and also P1 (since the first posted fragment also happens to be the first in the final file). The second posted fragment is C2 or P41, since it's the second posted but it's last in the file.
 
 ### Fragment format
 Each fragment is in Intel HEX format (`.hex`), which can be recognized by the colon at the start of every line (the _start code_). Every line of a `.hex` file is called a _record_, and contains some data (along with other metadata fields, such as a checksum).
 
-I will not go too deeply into the details of the Intel HEX format - for more information on how to read them, see the [Intex HEX Wikipedia article][]. For the purposes of this challenge, however, it is useful to know that the 4-digit _address_ of a record in a `.hex` file is given by characters 4 to 7.
+I will not go too deeply into the details of the Intel HEX format - for more information on how to read it, see the [Intel HEX Wikipedia article][]. For the purposes of this challenge, however, it is useful to know that the 4-digit _address_ of a record in a `.hex` file is given by characters 4 to 7.
 
 For example, in this record from fragment C1:
 
     :2001E0000AE3437D4A6B0FA69B775E5331FF32E153553BB5C0DDA768161BCF511A56415943
 
-Characters 4 to 7 are `01E0`, so that's the address of this line. Knowing the address can be useful in fragments that have been scrambled in some way, as this allows you to spot and correct it.
+Characters 4 to 7 are `01E0`, so that's the (hexadecimal) address of this record. Knowing the address can be useful in fragments that have been scrambled in some way, as this allows you to spot and correct it.
 
-Otherwise, all you need to know about Intel HEX is that a `.hex` file is an ASCII encoding of binary data which can be converted into bytes. I'm using the [Python intelhex][] library to convert them.
+Otherwise, all you need to know about Intel HEX is that a `.hex` file is an ASCII encoding of binary data which can be decoded into bytes. I'm using the [Python intelhex][] library to decode them.
 
 ## Fragment list
-The following is a list of the fragments in chronological ordering. Each section contains a table of information on the fragment, an explanation of how to obtain it, and any useful notes. The list will be updated as more fragments are found.
+The following is a list of all fragments found so far in chronological ordering. Each section contains a table of information on the fragment, an explanation of how to obtain it, and any useful notes. The list will be updated as more fragments are found.
 
 ### Fragment C1 (P1)
 * Chronological index: 1
@@ -82,7 +82,7 @@ The two `.fragment` files together contain all of the fragment C2. However, they
 * `bottleFLIP.fragment` contains the first half of the fragment (records 0000 to 0680).
 * `say_hi.fragment` contains the second half (dump lines 06A0 to 1380), but the row list has been cut into two pieces near the middle and the two pieces swapped. This must be reversed before assembling the two halves of the fragment C2 together.
 
-It's also unclear to me how TheMajorTechie expected anyone to guess the correct URL from his hint - you would have to first guess that `say_hi` and `bottleFLIP` refer to files, and then you would have to guess that the files end with the extension `.fragment`. I don't think anyone would have gotten this. The only reasonable way to obtain this fragment is from the GitHub commit history.
+It's unclear to me how TheMajorTechie expected anyone to guess the correct URL from his hint - you would have to first guess that `say_hi` and `bottleFLIP` refer to files, and then you would have to guess that the files end with the extension `.fragment`. I don't think anyone would have gotten this. The only reasonable way to obtain this fragment is from the GitHub commit history.
 
 ### Fragment C3 (P2)
 * Chronological index: 3
@@ -176,7 +176,7 @@ The website also usefully confirmed that this is day 6, which proves this is fra
 
 Solution: A TIFF file named `lovelyPicture.tif` was added to [whatif.themajortechie.com][]. Opening it shows a black-and-white image. Adjusting the contrast reveals a secret message containing a Pastebin URL, which contains fragment C7. (The Pastebin page names it as `file_4`, proving that this is also fragment P4).
 
-*NOTE: Techie went back 2 days later and replaced this TIF file with a much larger one (see this commit: <https://github.com/TheMajorTechie/tmt-website/commit/89c9e278068103206c7a8c9e96f8087b358d22d9>). I'm not sure why he did this, since the new file appears to contain exactly the same content. Perhaps there was something wrong with the other one, although I had no problems opening it.*
+*NOTE: Techie went back 2 days later and replaced this TIFF file with a much larger one (see this commit: <https://github.com/TheMajorTechie/tmt-website/commit/89c9e278068103206c7a8c9e96f8087b358d22d9>). I'm not sure why he did this, since the new file appears to contain exactly the same content. Perhaps there was something wrong with the other one, although I had no problems opening it.*
 
 ### Fragment C8 (P38)
 * Chronological index: 8
@@ -318,5 +318,5 @@ This isn't a valid place for an HTML comment, since hrefs are interpreted as str
 [tmt-website `whatif` commits]: https://github.com/TheMajorTechie/tmt-website/commits/whatif
 [#2nd alt hunt Fimfiction tag]: https://www.fimfiction.net/search/blog-posts?q=%232nd+alt+hunt&s=date
 [New 2nd alt hint! (+ details on what you get if you find it)]: https://www.fimfiction.net/blog/942118/new-2nd-alt-hint-details-on-what-you-get-if-you-find-it
-[Intex HEX Wikipedia article]: https://en.wikipedia.org/wiki/Intel_HEX
+[Intel HEX Wikipedia article]: https://en.wikipedia.org/wiki/Intel_HEX
 [Python intelhex]: https://pypi.org/project/intelhex/
