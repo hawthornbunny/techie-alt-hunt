@@ -15,9 +15,9 @@ This document contains my (hawthornbunny's) findings so far, and is being period
 * [tmt-website `whatif` commits][]: The GitHub commit history for TheMajorTechie's website. Any change that he makes to the website can be seen here; usually, this just straight-up gives you the fragment. This is generally the best place to check if you're stuck. It's also useful for seeing the change history, which makes it easier to understand the context of older hints.
 
 ## Overview of the challenge
-The main objective is to figure out which account on Fimfiction is an alternate account belonging to TheMajorTechie. (To be precise, it is his "second alt" since he already has a known one, [TechnoNerd](https://www.fimfiction.net/user/301253/TechnoNerd).
+The main objective is to figure out which account on Fimfiction is an alternate account belonging to TheMajorTechie. (To be precise, it is his "second alt" since he already has a known one, [TechnoNerd](https://www.fimfiction.net/user/301253/TechnoNerd)).
 
-To do this, TheMajorTechie is posting hints nearly every day which point to "fragments". Each fragment is an Intel HEX file containing encoded binary data. When all of the fragments are found, decoded to bytes, and assembled, they will presumably form a file which gives the name of the TheMajorTechie's alternate account.
+To do this, TheMajorTechie is posting hints nearly every day which point to "fragments". Each fragment is a file containing encoded binary data. When all of the fragments are found, decoded to bytes, and assembled in the correct sequence, they will presumably form one large file which gives the name of the TheMajorTechie's alternate account.
 
 ## Fragments
 There are 41 fragments in total. We know this because TheMajorTechie has been posting a list of integers with each new hint, and the list gets longer by one each time. The integers generally match the file names of the fragments, indicating a one-to-one correspondence. (This is also one way to identify a hint post - if it has the fragment list, it's a hint to a fragment. The list can also be used to figure out which fragment the hint is for).
@@ -28,8 +28,10 @@ Based on the pattern that has been revealed so far, the complete fragment list w
 
 From this we can conclude that there are 41 fragments in the final file, and that the last fragment to be posted will be the 21st in the file.
 
+NOTE: Techie independently confirmed the existence of 41 fragments in [this comment](https://www.fimfiction.net/group/215617/techies-alt-hunt-extravaganza#comment/442022) on the Techie's alt-hunt extravaganza! group.
+
 ### Referencing fragments
-There are 2 ways a fragment can be referred to - by its chronological index (ie. when it was posted) or its positional index (where it is in the final file). It doesn't really matter which index we use since we can freely convert one to the other - however, it's important to be clear about which identifier we're using to avoid confusion.
+There are 2 ways to refer to a fragment - by its chronological index (ie. when it was posted) or its positional index (where it is in the final file). It doesn't really matter which index we use since we can freely convert one to the other - however, it's important to be clear about which identifier we're using to avoid confusion.
 
 I've chosen to use the prefix C for chronological indices, and P for positional indices. Therefore, the first posted fragment is C1, and also P1 (since the first posted fragment also happens to be the first in the final file). The second posted fragment is C2 or P41, since it's the second posted but it's last in the file.
 
@@ -240,8 +242,8 @@ The "what you already know" obviously refers to this fragment. A close inspectio
 Doing so reveals `the_reddest_herring.zip.007.hex`, but you can just download the fragment straight from GitHub anyway. I'm not really sure how Techie expects to hide them if he knows people can just check GitHub, unless they really are all red herrings.
 
 ### Fragment C14 (P35)
-* Chronological index: 10
-* Positional index: 37
+* Chronological index: 14
+* Positional index: 35
 * Posted on: 2021-04-11
 * GitHub commits
 * Relevant URLs
