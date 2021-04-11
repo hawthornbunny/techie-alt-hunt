@@ -1,5 +1,5 @@
 # TheMajorTechie's alt-hunt challenge
-On 25th March 2021, TheMajorTechie started an "alt-hunt" challenge, in which he claims to have an alternate account on Fimfiction and will award a prize to whomever identifies it first. The challenge was announced on his Fimfiction blog in the blog post [New 2nd alt hint! (+ details on what you get if you find it)][]:
+On 25th March 2021, [TheMajorTechie](https://www.fimfiction.net/user/234887/TheMajorTechie) started an "alt-hunt" challenge, in which he claims to have an alternate account on Fimfiction and will award a prize to whomever identifies it first. The challenge was announced on his Fimfiction blog in the blog post [New 2nd alt hint! (+ details on what you get if you find it)][]:
 
 > I suppose I should get around to choosing a prize, huh?
 >
@@ -31,7 +31,7 @@ From this we can conclude that there are 41 fragments in the final file, and tha
 ### Identifying fragments
 There are 2 ways a fragment can be referred to - by their chronological index (ie. the order in which they were posted) or their positional index (where they are in the final file). It doesn't really matter which we use since we can freely convert one to the other, but it's important to be clear about which identifier we're using to avoid confusion.
 
-I've chosen to use the prefix `C` for chronological indices, and `P` for positional indices. Therefore, the first posted fragment is C1, and also P1 (since the first posted fragment also happens to be the first in the final file). The second posted fragment is C2 or P41, since it's the second posted but it's last in the file.
+I've chosen to use the prefix C for chronological indices, and P for positional indices. Therefore, the first posted fragment is C1, and also P1 (since the first posted fragment also happens to be the first in the final file). The second posted fragment is C2 or P41, since it's the second posted but it's last in the file.
 
 ### Fragment structure
 For the most part, every fragment is a hex dump. I don't recognize the dump format or what program was used to dump it - it doesn't look like Linux `hexdump`.
@@ -95,7 +95,7 @@ There is also one strange line in `say_hi.fragment` that I cannot account for:
 
     :1B138000453E21D701504B05060000000001000100690000001C93070000000F
 
-It occurs before the footer, suggesting it's the last line of this fragment - but the line number, 1B138000, seems completely wrong, since the preceding line is 20136000. I would expect the line number to be 20138000, based on the established pattern.
+It occurs before the footer, suggesting it's the last line of this fragment - but the line number, `1B138000`, seems completely wrong, since the preceding line is `20136000`. I would expect the line number to be `20138000`, based on the established pattern.
 
 It's also unclear to me how TheMajorTechie expected anyone to guess the correct URL from his hint - you would have to first guess that `say_hi` and `bottleFLIP` refer to files, and then you would have to guess that the files end with the extension `.fragment`. I don't think anyone would have gotten this. The only reasonable way to obtain this fragment is from the GitHub commit history.
 
@@ -121,15 +121,15 @@ Solution: The blog post contained the hint "it is not found.". This is obviously
   * <https://github.com/TheMajorTechie/tmt-website/commit/8b23fb898888d8a23e6790c70341fa7ca26a8c73>
 * Relevant URLs
   * <https://whatif.themajortechie.com>
+  * <https://whatif.themajortechie.com/the_reddest_herring.zip.040.hex>
 * Hints
   * <https://www.fimfiction.net/blog/942500/->
-  * <https://www.fimfiction.net/story/308542/what-if>
 
-Solution: The blog post links to TheMajorTechie's anthology fic _What If..._. However, I'm not sure how Techie expected us to solve this one. The GitHub commit shows that he added a hex file named `the_reddest_herring.zip.040.hex` to the repo - however, it doesn't appear to be linked anywhere. He did change the `whatif.png` image on [whatif.themajortechie.com][] to `whatif.jpg`, but I can't figure out why that's significant.
+Solution: The GitHub commit shows that Techie changed the button image on [whatif.themajortechie.com][] from `whatif.png` to `whatif.jpg`. I couldn't figure this one out at first, since it didn't seem like a particularly significant change - however, a hexdump of the `whatif.jpg` file revealed that the fragment dump is appended to the end of that file. Interestingly this doesn't seem to prevent the image from displaying at all, which was a good way to conceal the fragment in GitHub.
 
-Possibly he embedded the fragment in the fic somewhere, but I couldn't find it.
+One oddity, however, is that Techie also uploaded a file named `the_reddest_herring.zip.040.hex` to the site, which you can simply download. I don't understand why he did this - it wasn't necessary, since the file is already contained in `whatif.jpg`. Adding this file effectively bypasses the challenge entirely since you now don't need to figure out the trick with the jpeg file.
 
-In any case, I'll assume that the `the_reddest_herring.zip.040.hex` file in GitHub is the fragment. (Note the `.zip` in the extension, however - either this is misdirection, or it could be a clue that the fragment dump is actually the dump of a zip file which we will need to unzip).
+Also note the `.zip` in the file extension - either this is misdirection, or it could be a clue that the fragment dump is actually the dump of a zip file which we will need to unzip.
 
 ### Fragment C5 (P3)
 * Chronological index: 7
@@ -326,7 +326,6 @@ This isn't a valid place for an HTML comment, since hrefs are interpreted as str
 
 ### Fragment C41 (P21)
 
-## Links
 [TheMajorTechie's Fimfiction userpage]: https://www.fimfiction.net/user/234887/TheMajorTechie
 [TheMajorTechie's Fimfiction blog]: https://www.fimfiction.net/user/234887/TheMajorTechie/blog
 [Techie's alt-hunt extravaganza! group]: https://www.fimfiction.net/group/215617/techies-alt-hunt-extravaganza
