@@ -33,27 +33,18 @@ There are 2 ways a fragment can be referred to - by their chronological index (i
 
 I've chosen to use the prefix C for chronological indices, and P for positional indices. Therefore, the first posted fragment is C1, and also P1 (since the first posted fragment also happens to be the first in the final file). The second posted fragment is C2 or P41, since it's the second posted but it's last in the file.
 
-### Fragment structure
-For the most part, every fragment is a hex dump. I don't recognize the dump format or what program was used to dump it - it doesn't look like Linux `hexdump`.
+### Fragment format
+Each fragment is in Intel HEX format (`.hex`), which can be recognized by the colon at the start of every line (the _start code_). Every line of a `.hex` file is called a _record_, and contains some data (along with other metadata fields, such as a checksum).
 
-Each fragment consists of a header row, multiple body rows, and a footer row. Here is a truncated version of fragment C1, showing only the header, first body row, and footer:
+I will not go too deeply into the details of the Intel HEX format - for more information on how to read them, see the [Intex HEX Wikipedia article][]. For the purposes of this challenge, however, it is useful to know that the 4-digit _address_ of a record in a `.hex` file is given by characters 4 to 7.
 
-    :020000020000FC
-    :20000000504B0304140000000800F102795297B8A49EE79207006DA007001700000074684C
-    ...383 more body rows...
-    :00000001FF
+For example, in this record from fragment C1:
 
-The header and footer never seem to change - they're always `:020000020000FC` and `:00000001FF` respectively. I'm unsure why they're there, since they don't seem to relate to the dump data in any way and I can't figure out why the dumping tool would produce them. (They don't, for example, indicate the number of lines, nor do they identify the fragment in any way).
+    :2001E0000AE3437D4A6B0FA69B775E5331FF32E153553BB5C0DDA768161BCF511A56415943
 
-Each body row is 75 characters long and consists of 3 parts, with no separator between them:
+Characters 4 to 7 are `01E0`, so that's the address of this line. Knowing the address can be useful in fragments that have been scrambled in some way, as this allows you to spot and correct it.
 
-* Character 1: Starting colon (:)
-* Characters 2-9: Line number (hexadecimal)
-* Characters 10-75: Dump line of 64 hex values representing representing 32 bytes
-
-The line number is a little confusing. I have assumed it to be an 8-digit hexadecimal number, as this then leaves 64 characters for the dump line, which corresponds to 32 bytes - a natural row length for a hex dump. However, I've noticed that the line number always increments in steps of 2000 (hex), which is 8192 in decimal. This doesn't make sense to me since there obviously aren't 8192 bytes on each line. It's not the number of bits either (32 bytes is 256 bits). To be honest, I think the increment should be 20, not 2000, as this is 32 in decimal.
-
-For now, I'm just going to suppose that the line number always has an extra `00` appended to it for some reason.
+Otherwise, all you need to know about Intel HEX is that a `.hex` file is an ASCII encoding of binary data which can be converted into bytes. I'm using the [Python intelhex][] library to convert them.
 
 ## Fragment list
 The following is a list of the fragments in chronological ordering. Each section contains a table of information on the fragment, an explanation of how to obtain it, and any useful notes. The list will be updated as more fragments are found.
@@ -86,16 +77,10 @@ Solution: The blog post linked to [whatif.themajortechie.com][], and the fragmen
 
 Solution: The blog post linked to [whatif.themajortechie.com][], which added a new HTML comment: `<!--say_hi and do a bottleFLIP while you're at it!-->`. The GitHub commit shows that two files were added to the site repository: `bottleFLIP.fragment` and `say_hi.fragment`. These are downloadable at Relevant URLs above.
 
-The two `.fragment` files together contain all of the dump fragment C2. However, they're a bit scrambled and some effort must be made to reconstruct the full fragment:
+The two `.fragment` files together contain all of the fragment C2. However, they're a bit scrambled and some effort must be made to reconstruct the full fragment:
 
-* `bottleFLIP.fragment` contains the first half of the fragment (dump lines 20000000 to 20068000).
-* `say_hi.fragment` contains the second half (dump lines 2006A000 to 20136000), but the row list has been cut into two pieces near the middle and the two pieces swapped. This must be reversed before assembling the two halves of the fragment C2 together.
-
-There is also one strange line in `say_hi.fragment` that I cannot account for:
-
-    :1B138000453E21D701504B05060000000001000100690000001C93070000000F
-
-It occurs before the footer, suggesting it's the last line of this fragment - but the line number, `1B138000`, seems completely wrong, since the preceding line is `20136000`. I would expect the line number to be `20138000`, based on the established pattern.
+* `bottleFLIP.fragment` contains the first half of the fragment (records 0000 to 0680).
+* `say_hi.fragment` contains the second half (dump lines 06A0 to 1380), but the row list has been cut into two pieces near the middle and the two pieces swapped. This must be reversed before assembling the two halves of the fragment C2 together.
 
 It's also unclear to me how TheMajorTechie expected anyone to guess the correct URL from his hint - you would have to first guess that `say_hi` and `bottleFLIP` refer to files, and then you would have to guess that the files end with the extension `.fragment`. I don't think anyone would have gotten this. The only reasonable way to obtain this fragment is from the GitHub commit history.
 
@@ -333,3 +318,5 @@ This isn't a valid place for an HTML comment, since hrefs are interpreted as str
 [tmt-website `whatif` commits]: https://github.com/TheMajorTechie/tmt-website/commits/whatif
 [#2nd alt hunt Fimfiction tag]: https://www.fimfiction.net/search/blog-posts?q=%232nd+alt+hunt&s=date
 [New 2nd alt hint! (+ details on what you get if you find it)]: https://www.fimfiction.net/blog/942118/new-2nd-alt-hint-details-on-what-you-get-if-you-find-it
+[Intex HEX Wikipedia article]: https://en.wikipedia.org/wiki/Intel_HEX
+[Python intelhex]: https://pypi.org/project/intelhex/
