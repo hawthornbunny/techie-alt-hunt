@@ -48,6 +48,10 @@ Characters 4 to 7 are `01E0`, so that's the (hexadecimal) address of this record
 
 Otherwise, all you need to know about Intel HEX is that a `.hex` file is an ASCII encoding of binary data which can be decoded into bytes. I'm using the [Python intelhex][] library to decode them.
 
+## Progress
+
+    [██████████░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░] 29%
+
 ## Fragment list
 The following is a list of all fragments found so far in chronological ordering. Each section contains a table of information on the fragment, an explanation of how to obtain it, and any useful notes. The list will be updated as more fragments are found.
 
@@ -82,7 +86,7 @@ Solution: The blog post linked to [whatif.themajortechie.com][], which added a n
 The two `.fragment` files together contain all of the fragment C2. However, they're a bit scrambled and some effort must be made to reconstruct the full fragment:
 
 * `bottleFLIP.fragment` contains the first half of the fragment (records 0000 to 0680).
-* `say_hi.fragment` contains the second half (dump lines 06A0 to 1380), but the row list has been cut into two pieces near the middle and the two pieces swapped. This must be reversed before assembling the two halves of the fragment C2 together.
+* `say_hi.fragment` contains the second half (records 06A0 to 1380), but the row list has been cut into two pieces near the middle and the two pieces swapped. This must be reversed before assembling the two halves of the fragment C2 together.
 
 It's unclear to me how TheMajorTechie expected anyone to guess the correct URL from his hint - you would have to first guess that `say_hi` and `bottleFLIP` refer to files, and then you would have to guess that the files end with the extension `.fragment`. I don't think anyone would have gotten this. The only reasonable way to obtain this fragment is from the GitHub commit history.
 
@@ -112,11 +116,11 @@ Solution: The blog post contained the hint "it is not found.". This is obviously
 * Hints
   * <https://www.fimfiction.net/blog/942500/->
 
-Solution: The GitHub commit shows that Techie changed the button image on [whatif.themajortechie.com][] from `whatif.png` to `whatif.jpg`. I couldn't figure this one out at first, since it didn't seem like a particularly significant change - however, a hexdump of the `whatif.jpg` file revealed that the fragment dump is appended to the end of that file. Interestingly this doesn't seem to prevent the image from displaying at all, which was a good way to conceal the fragment in GitHub.
+Solution: The GitHub commit shows that Techie changed the button image on [whatif.themajortechie.com][] from `whatif.png` to `whatif.jpg`. I couldn't figure this one out at first, since it didn't seem like a particularly significant change - however, a hexdump of the `whatif.jpg` file revealed that the fragment is appended to the end of that file. Interestingly this doesn't seem to prevent the image from displaying at all, which was a good way to conceal the fragment in GitHub.
 
 One oddity, however, is that Techie also uploaded a file named `the_reddest_herring.zip.040.hex` to the site, which you can simply download. I don't understand why he did this - it wasn't necessary, since the file is already contained in `whatif.jpg`. Adding this file effectively bypasses the challenge entirely since you now don't need to figure out the trick with the jpeg file.
 
-Also note the `.zip` in the file extension - either this is misdirection, or it could be a clue that the fragment dump is actually the dump of a zip file which we will need to unzip.
+Also note the `.zip` in the file extension - either this is misdirection, or it could be a clue that the fragment is actually a zip file which we will need to unzip.
 
 ### Fragment C5 (P3)
 * Chronological index: 7
@@ -211,10 +215,79 @@ After some examination of `faviconNew.png` and comparing it to the zip file I ob
 I think I got a bit lucky with this one - it looks like Techie didn't mean to upload the `the_reddest_herring.zip.005.zip` file to GitHub (he deleted it immediately). If he had just uploaded the favicon, I might not have figured this one out.
 
 ### Fragment C10 (P37)
+* Chronological index: 10
+* Positional index: 37
+* Posted on: 2021-04-06
+* GitHub commits
+  * <https://github.com/TheMajorTechie/tmt-website/commit/a6eed8d3b0ff348bb5a244cc0929bbee84d6e0e6>
+* Relevant URLs
+  * <https://whatif.themajortechie.com>
+  * <https://whatif.themajortechie.com/bottleFLIP.fragment>
+  * <https://whatif.themajortechie.com/037.7z>
+  * <https://themajortechie.neocities.org/museum.html>
+* Hints
+  * <https://www.fimfiction.net/blog/943775/revisit-the-past>
+
+Solution: Techie added an HTML comment to [whatif.themajortechie.com][]: `<!--i suppose a bottleflip is nice to have once in a while.-->`. This was a hint to look back at `bottleFLIP.fragment`, which was discovered with fragment C2. Techie updated this file with the string `037.7z`, indicating the location of a new file on the whatif website.
+
+As the name suggests, `037.7z` is a 7zip archive. Extracting the file produces a file called `037.pdn`.
+
+`.pdn` files are Paint.NET, an old Windows image editing program. This is presumably what the hint was indicating:
+
+> what is old is now new again.
+
+By reading the raw file data I was able to ascertain that the file contained multiple layers, and I even managed to extract a thumbnail of what the image looks like (it's one of TheMajorTechie's meme emojis) - however, I guessed that the file contained a hidden layer that I would need Paint.NET to open. This presented a big problem for me, as I simply don't have any Windows machines, and Paint.NET is notoriously unsupported on Linux.
+
+In the end, I sent the file to fellow Fimfictioneer [SweetAI Belle](https://www.fimfiction.net/user/98035/SweetAI+Belle), who I know has used Paint.NET, and she kindly found the hidden layer for me.
+
+The layer contained the URL <https://themajortechie.neocities.org/museum.html>. This is the URL of TheMajorTechie's Neocities site. Fragment C10 can be found in the source of that site.
 
 ### Fragment C11 (P6)
+* Chronological index: 11
+* Positional index: 6
+* Posted on: 2021-04-07
+* GitHub commits
+  * <https://github.com/TheMajorTechie/tmt-website/commit/fa9dc53fba0d5e6a3dc17c69b51fd245ffa37acf>
+  * <https://github.com/TheMajorTechie/tmt-website/commit/683376ac9d7c39b3889dc72a04a453b04e19d25d>
+  * <https://github.com/TheMajorTechie/tmt-website/commit/29f22925fb9a552102a10bc3989a10729499f7da>
+* Relevant URLs
+  * <https://whatif.themajortechie.com>
+  * <https://whatif.themajortechie.com/6.dc42>
+* Hints
+  * <https://www.fimfiction.net/blog/943893/file-6-has-been-posted-early-because-dangit-i-have-a-lotta-homework-to-do-right-now>
+* Status: **unsolved**
+
+Solution: Techie added a button to [whatif.themajortechie.com][] with the following label:
+
+> Sometimes, it's the legacy of the past that will assist you toward the future.
+
+He also added the following comment to the HTML source:
+
+> `<!--Say hi to Lisa for me. :) Oh wait, forgot the file itself. It's the_reddest_herring.zip.006.7z-->`
+
+Clicking the button downloads a file named `6.dc42`.
+
+`.dc42` appears to be a disk image format used by the Apple Lisa, an Apple computer released in 1983 - hence the hint "Say hi to Lisa for me". See the [Apple Lisa Wikipedia article](https://en.wikipedia.org/wiki/Apple_Lisa) for more information on the machine.
+
+To read this format, we therefore need a Lisa emulator. There is one available at the [Lisa Emulator Project](https://lisa.sunder.net/) - however, it looks like it has to be built from scratch, and like all esoteric computing projects, the build procedure looks like a mess of scripts that is probably going to fail in 19 different ways. Therefore I've skipped this one for now. You can clone the source from the [LisaEm GitHub page](https://github.com/rayarachelian/lisaem) if you want to try to build it.
 
 ### Fragment C12 (P36)
+* Chronological index: 12
+* Positional index: 36
+* Posted on: 2021-04-08
+* Relevant URLs
+  * <https://whatif.themajortechie.com>
+  * <https://whatif.themajortechie.com/6.dc42>
+* Hints
+  * <https://www.fimfiction.net/group/215617/techies-alt-hunt-extravaganza/thread/466417/eh-tonights-fragment-is-tacked-onto-the-end-of-yesterdays-fragment-have-fun-yall>
+  * <https://www.fimfiction.net/blog/944058/eh-tonights-fragment-is-tacked-onto-the-end-of-yesterdays-fragment-have-fun-yall>
+* Status: **unsolved**
+
+The hint blog says:
+
+> eh. tonight's fragment is tacked onto the end of yesterday's fragment. have fun yall
+
+So this one requires fragment C11 to be found first.
 
 ### Fragment C13 (P7)
 * Chronological index: 13
@@ -246,6 +319,8 @@ Doing so reveals `the_reddest_herring.zip.007.hex`, but you can just download th
 * Positional index: 35
 * Posted on: 2021-04-11
 * GitHub commits
+  * <https://github.com/TheMajorTechie/tmt-website/commit/f0ebb0e38ca32446f2d206bee89ea44d72be9f69>
+  * <https://github.com/TheMajorTechie/tmt-website/commit/47a28f97e65f35b77089094d3f917fd1d24f3867>
 * Relevant URLs
   * <https://whatif.themajortechie.com>
   * <https://whatif.themajortechie.com/the_reddest_herring.zip.035.hex>
@@ -260,6 +335,14 @@ Techie added an HTML comment inside the href of the button on [whatif.themajorte
 This isn't a valid place for an HTML comment, since hrefs are interpreted as strings - indeed, you can see what he added just by hovering over the button. The `the_reddest_herring.zip.035.hex` file can be downloaded straight from the document root of the site. Didn't even need to go to GitHub for this one.
 
 ### Fragment C15 (P8)
+* Chronological index: 15
+* Positional index: 8
+* Posted on: 2021-04-12
+* Hints
+  * <https://www.fimfiction.net/group/215617/techies-alt-hunt-extravaganza/thread/466751/anyone-still-doing-this>
+  * <https://www.fimfiction.net/blog/944607/anyone-still-doing-this>
+
+Solution: Again, Techie gave this one for free by posting it directly.
 
 ### Fragment C16 (P34)
 
