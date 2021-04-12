@@ -48,10 +48,6 @@ Characters 4 to 7 are `01E0`, so that's the (hexadecimal) address of this record
 
 Otherwise, all you need to know about Intel HEX is that a `.hex` file is an ASCII encoding of binary data which can be decoded into bytes. I'm using the [Python intelhex][] library to decode them.
 
-## Progress
-
-    [██████████░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░] 29%
-
 ## Fragment list
 The following is a list of all fragments found so far in chronological ordering. Each section contains a table of information on the fragment, an explanation of how to obtain it, and any useful notes. The list will be updated as more fragments are found.
 
