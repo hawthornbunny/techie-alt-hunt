@@ -249,9 +249,9 @@ The layer contained the URL <https://themajortechie.neocities.org/museum.html>. 
 * Relevant URLs
   * <https://whatif.themajortechie.com>
   * <https://whatif.themajortechie.com/6.dc42>
+  * <https://whatif.themajortechie.com/the_reddest_herring.zip.006.7z>
 * Hints
   * <https://www.fimfiction.net/blog/943893/file-6-has-been-posted-early-because-dangit-i-have-a-lotta-homework-to-do-right-now>
-* Status: **unsolved**
 
 Solution: Techie added a button to [whatif.themajortechie.com][] with the following label:
 
@@ -259,13 +259,25 @@ Solution: Techie added a button to [whatif.themajortechie.com][] with the follow
 
 He also added the following comment to the HTML source:
 
-> `<!--Say hi to Lisa for me. :) Oh wait, forgot the file itself. It's the_reddest_herring.zip.006.7z-->`
+    <!--Say hi to Lisa for me. :) Oh wait, forgot the file itself. It's the_reddest_herring.zip.006.7z-->
 
-Clicking the button downloads a file named `6.dc42`.
+As the hint says, a 7zip file named `the_reddest_herring.zip.006.7z` can be downloaded from [whatif.themajortechie.com][]. However, this only gets you part of the way there, as the file is password-protected and requires a password to be unzipped.
 
-`.dc42` appears to be a disk image format used by the Apple Lisa, an Apple computer released in 1983 - hence the hint "Say hi to Lisa for me". See the [Apple Lisa Wikipedia article](https://en.wikipedia.org/wiki/Apple_Lisa) for more information on the machine.
+Clicking on the aforementioned button downloads a file named `6.dc42`. This appears to be a disk image format used by the Apple Lisa, an Apple computer released in 1983 - hence the hint "Say hi to Lisa for me". See the [Apple Lisa Wikipedia article](https://en.wikipedia.org/wiki/Apple_Lisa) for more information on the machine.
 
-To read this format, we therefore need a Lisa emulator. There is one available at the [Lisa Emulator Project](https://lisa.sunder.net/) - however, it looks like it has to be built from scratch, and like all esoteric computing projects, the build procedure looks like a mess of scripts that is probably going to fail in 19 different ways. Therefore I've skipped this one for now. You can clone the source from the [LisaEm GitHub page](https://github.com/rayarachelian/lisaem) if you want to try to build it.
+To read this format, we therefore need a Lisa emulator. This can be downloaded from the [Lisa Emulator Project](https://lisa.sunder.net/).
+
+Unfortunately for me, the Linux version of this emulator has to be built from source and the build procedure looks an utter mess. However, it turned out that the Windows version surprisingly runs more or less perfectly under Wine, so I used that instead.
+
+With absolutely no experience of the Apple Lisa, I had to tinker a bit to figure out how to actually start it. Inserting the `6.dc42` file as a diskette didn't work (even though it's the correct format, apparently the file is not a diskette image). Eventually I found that specifying `6.dc42` as the boot ROM in the preferences was good enough.
+
+Once the Apple Lisa is booted with the `6.dc42` file, the disk can be opened. It contains several files, including one named `:)`. Opening the `:)` file reveals a message:
+
+> You found me! Here's the password that you're looking for.
+>
+> howMuchJ4mCanaJam$1AmCramIfaClamcancantCramslAm
+
+This is the password to unzip the file `the_reddest_herring.zip.006.7z`. Doing so produces fragment C11.
 
 ### Fragment C12 (P36)
 * Chronological index: 12
@@ -282,8 +294,6 @@ To read this format, we therefore need a Lisa emulator. There is one available a
 The hint blog says:
 
 > eh. tonight's fragment is tacked onto the end of yesterday's fragment. have fun yall
-
-So this one requires fragment C11 to be found first.
 
 ### Fragment C13 (P7)
 * Chronological index: 13
