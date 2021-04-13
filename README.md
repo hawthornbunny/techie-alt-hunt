@@ -12,7 +12,7 @@ This document contains my (hawthornbunny's) findings so far, and is being period
 * [TheMajorTechie's Fimfiction blog][]: Most hints are being posted here, as well as some indirect hints.
 * [Techie's alt-hunt extravaganza! group][]: Fimfiction group for the challenge. TheMajorTechie is posting hints to this group as well as his own blog, and his comments sometimes contain hints.
 * [#2nd alt hunt Fimfiction tag][]: Lists all of TheMajorTechie's Fimfiction blog posts that he's tagged as relating to the 2nd alt hunt, some of which contain hints. Posts which are specifically fragment hints are usually tagged `#hint`.
-* [tmt-website `whatif` commits][]: The GitHub commit history for TheMajorTechie's website. Any change that he makes to the website can be seen here; usually, this just straight-up gives you the fragment. This is generally the best place to check if you're stuck. It's also useful for seeing the change history, which makes it easier to understand the context of older hints.
+* [tmt-website `whatif` commits][]: The GitHub commit history for TheMajorTechie's website. Any change that he makes to the website can be seen here; usually, this just straight up gives you the fragment. This is generally the best place to check if you're stuck. It's also useful for seeing the change history, which makes it easier to understand the context of older hints.
 
 ## Overview of the challenge
 The main objective is to figure out which account on Fimfiction is an alternate account belonging to TheMajorTechie. (To be precise, it is his "second alt" since he already has a known one, [TechnoNerd](https://www.fimfiction.net/user/301253/TechnoNerd)).
@@ -285,15 +285,16 @@ This is the password to unzip the file `the_reddest_herring.zip.006.7z`. Doing s
 * Posted on: 2021-04-08
 * Relevant URLs
   * <https://whatif.themajortechie.com>
-  * <https://whatif.themajortechie.com/6.dc42>
+  * <https://whatif.themajortechie.com/the_reddest_herring.zip.006.7z>
 * Hints
   * <https://www.fimfiction.net/group/215617/techies-alt-hunt-extravaganza/thread/466417/eh-tonights-fragment-is-tacked-onto-the-end-of-yesterdays-fragment-have-fun-yall>
   * <https://www.fimfiction.net/blog/944058/eh-tonights-fragment-is-tacked-onto-the-end-of-yesterdays-fragment-have-fun-yall>
-* Status: **unsolved**
 
 The hint blog says:
 
 > eh. tonight's fragment is tacked onto the end of yesterday's fragment. have fun yall
+
+It's a shame Techie gave the answer to this one, because I thought it was quite a clever way to hide this fragment. Yesterday's file `the_reddest_herring.zip.006.7z` actually contains _two_ fragments - the first is fragment C11, the one that's locked inside the password-protected archive. But it also contains fragment C12, which - like several other fragments have been - was simply appended directly to the end of the file data. Chances are you wouldn't look twice if you thought you'd already found the fragment, so this was a neat way to hide it.
 
 ### Fragment C13 (P7)
 * Chronological index: 13
@@ -348,7 +349,7 @@ This isn't a valid place for an HTML comment, since hrefs are interpreted as str
   * <https://www.fimfiction.net/group/215617/techies-alt-hunt-extravaganza/thread/466751/anyone-still-doing-this>
   * <https://www.fimfiction.net/blog/944607/anyone-still-doing-this>
 
-Solution: Again, Techie gave this one for free by posting it directly.
+Solution: As before, Techie gave this one for free by posting it directly.
 
 ### Fragment C16 (P34)
 
