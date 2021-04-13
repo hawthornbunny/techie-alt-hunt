@@ -131,7 +131,7 @@ Also note the `.zip` in the file extension - either this is misdirection, or it 
   * <https://www.fimfiction.net/blog/942624/threepigsdocx>
   * <https://www.fimfiction.net/group/215617/techies-alt-hunt-extravaganza/thread/465605/day-5>
 
-Techie posted the hint post in two places for this: his own blog, and the [Techie's alt-hunt extravaganza! group][]. This made it possible to identify this as fragment C5, as he said it was day 5 and we've had 4 fragments prior to this one.
+Techie posted the hint post in two places for this: his own blog, and the [Techie's alt-hunt extravaganza! group][].
 
 The hint was a link to a file named `threepigs.docx`, with the line "corruption isn't the end". docx is the OpenOffice document format, so I tried to open it with LibreOffice - however, LibreOffice claims the document is corrupt.
 
@@ -162,8 +162,6 @@ Techie updated the [whatif.themajortechie.com][] website with the following hint
 
 This refers to the `README.md` file in the site's GitHub repo, which contains an HTML comment with a fragment inside it. The fragment is encoded, however - each character of the fragment has been replaced by its hexadecimal ASCII code. To obtain the fragment, this needs to be decoded.
 
-The website also usefully confirmed that this is day 6, which proves this is fragment C6.
-
 ### Fragment C7 (P4)
 * Chronological index: 7
 * Positional index: 4
@@ -176,7 +174,7 @@ The website also usefully confirmed that this is day 6, which proves this is fra
   * <https://whatif.themajortechie.com>
   * <https://pastebin.com/96ZCiK7u>
 
-Solution: A TIFF file named `lovelyPicture.tif` was added to [whatif.themajortechie.com][]. Opening it shows a black-and-white image. Adjusting the contrast reveals a secret message containing a Pastebin URL, which contains fragment C7. (The Pastebin page names it as `file_4`, proving that this is also fragment P4).
+Solution: A TIFF file named `lovelyPicture.tif` was added to [whatif.themajortechie.com][]. Opening it shows a black-and-white image. Adjusting the contrast reveals a secret message containing a Pastebin URL, which contains fragment C7.
 
 *NOTE: Techie went back 2 days later and replaced this TIFF file with a much larger one (see this commit: <https://github.com/TheMajorTechie/tmt-website/commit/89c9e278068103206c7a8c9e96f8087b358d22d9>). I'm not sure why he did this, since the new file appears to contain exactly the same content. Perhaps there was something wrong with the other one, although I had no problems opening it.*
 
