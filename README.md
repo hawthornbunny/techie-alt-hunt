@@ -64,6 +64,8 @@ The following is a list of all fragments found so far in chronological ordering.
 
 Solution: The blog post linked to [whatif.themajortechie.com][], and the fragment was in an HTML comment in the page source.
 
+As an aside, since this fragment is the first in the file, we can get a little information ahead of time by decoding the Intel HEX content - even though we don't have the rest of the file, this still gives us the file header. Doing so reveals what looks like a zip file containing a JPEG image named `the_reddest_herring.jpg`. Presumably (and assuming that the reference to red herrings is a misdirection), this JPEG contains the name of the alt account. We won't be able to unzip the data until we have all the fragments, however.
+
 ### Fragment C2 (P41)
 * Chronological index: 2
 * Positional index: 41
@@ -350,26 +352,243 @@ This isn't a valid place for an HTML comment, since hrefs are interpreted as str
 Solution: As before, Techie gave this one for free by posting it directly.
 
 ### Fragment C16 (P34)
+* Chronological index: 16
+* Positional index: 34
+* Posted on: 2021-04-13
+* GitHub commits
+* Relevant URLs
+  * <https://whatif.themajortechie.com>
+  * <https://whatif.themajortechie.com/the_reddest_herring.zip.034.zip>
+* Hints
+  * <https://www.fimfiction.net/group/215617/techies-alt-hunt-extravaganza/thread/466831/the-keys-they-jingle>
+  * <https://www.fimfiction.net/blog/944715/the-keys-they-jingle>
+
+The only hint given for this was "the keys, they jingle", and a link to [whatif.themajortechie.com][] as usual. Checking the site revealed that a new description meta tag had been added to the HTML source:
+
+    <meta name="description" content="the keys jingle quietly in the ever-flowing breeze.">
+
+In addition, the first letter of the site's title `<h1>` element had been turned into a link to a file named `the_reddest_herring.zip.034.zip`.
+
+Downloading and opening this archive reveals a file named `the_reddest_herring.zip.034.hex` - however, that file is protected by a password, hence the hint (which refers to security keys, not physical ones).
 
 ### Fragment C17 (P9)
+* Chronological index: 17
+* Positional index: 9
+* Posted on: 2021-04-13
+* Hints
+  * <https://www.fimfiction.net/group/215617/techies-alt-hunt-extravaganza/thread/466918/have-file-9-cause-im-lazy>
+  * <https://www.fimfiction.net/blog/944852/have-file-9-cause-im-lazy>
+
+Solution: Once again, this fragment was simply posted in the raw.
 
 ### Fragment C18 (P33)
+* Chronological index: 18
+* Positional index: 33
+* Posted on: 2021-04-16
+* Relevant URLs
+  * <https://whatif.themajortechie.com>
+  * <https://whatif.themajortechie.com/the_reddest_herring.zip.035.hex>
+* Hints
+  * <https://www.fimfiction.net/group/215617/techies-alt-hunt-extravaganza/thread/467100/it-goes-beyond-the-surface>
+  * <https://www.fimfiction.net/blog/945093/it-goes-beyond-the-surface>
+
+Solution: Techie posted a complex-looking image in the hint post. The image contains several iconographic elements relevant to the challenge and to Techie himself. These include:
+
+* A Unicode emoji o(¬‿^)づ, which Techie commonly uses as a sigil
+* A hand-drawn YouTube icon, presumably referring to Techie's YouTube channels
+* A brain emoji
+* A golden door key, likely referencing the keys/passwords required to unlock some parts of the challenge
+* An image of Sweetie Giraffe, a character created by Techie. Sweetie Giraffe is further sporting some accoutrements:
+  * A cutie mark of the "F" key of a keyboard, likely a reference to the meme "Press F to pay respects".
+  * A sign saying "Your AD here"
+  * A sound effect "REEEEEEEEEEE", a memetic expression of anger
+  * Sweetie Giraffe is firing two red laser beams from her eyes, one of which is carrying the song lyric "never gonna give you up, never gonna let you down", a reference to Rickrolling.
+* A black floppy disk labelled "SAVE OR DIE"
+* A silver wrench
+* A :) emoticon, commonly used by Techie to indicate something of significance to the challenge
+* A hand-drawn Minecraft grass block
+* A sequence of 43 hexadecimal byte values:
+
+      68 74 74 70 73 3a 2f 2f 77 77 77 2e 79 6f 75 74 75 62 65 2e 63 6f 6d 2f 77 61 74 63 68 3f 76 3d 64 51 77 34 77 39 57 67 58 63 51
+
+  The string is difficult to read due to the light color and garish backdrop, but some image editing can make it visible. Decoding the bytes to ASCII reveals the URL <https://www.youtube.com/watch?v=dQw4w9WgXcQ>, which is a link to the YouTube video for Rick Astley's "Never Gonna Give You Up".
+* A background consisting of 11 diagonal stripes of 6 different colors, all highly saturated. The stripe pattern is mirrored around its diagonal axis. Each stripe bears the repeating word "TONK", a nickname used by TheMajorTechie.
+* A phrase that appears to be `*HYPERVENTILATING* *INTENSIFIES*`, although it is partly obscured by the key and by Sweetie Giraffe.
+* A phrase that is partly off-screen and mostly obscured by Sweetie Giraffe, but seems to  contain the word "SUFFERING".
+* A 15-character string of random characters that looks like it might be a password. The string is partly obscured by other elements; below, I have transcribed the characters that I can make out, but have replaced the obscured characters with ?:
+
+      ibhjSVVGIL??LHY
+
+  To make matters more difficult, the two obscured characters above look like they could even be two characters each, which would make solving this extremely difficult.
+
+  Assuming that the two obscured characters are each a single character, these are my best guesses for what they are:
+
+  * Character 1: a, d, G
+  * Character 2: 9, g, S
+
+  This gives 9 candidates for the string:
+
+  * `ibhjSVVGILa9LHY`
+  * `ibhjSVVGILagLHY`
+  * `ibhjSVVGILaSLHY`
+  * `ibhjSVVGILd9LHY`
+  * `ibhjSVVGILdgLHY`
+  * `ibhjSVVGILdSLHY`
+  * `ibhjSVVGILG9LHY`
+  * `ibhjSVVGILGgLHY`
+  * `ibhjSVVGILGSLHY`
+
+  Alternatively, it's possible the string could be Base64-encoded data, although I wasn't able to decode it to anything meaningful.
+
+Despite all of the elements in this image, I have a feeling they are all red herrings, as the image file itself contains a fragment, appended to the end of the file as with previous fragments. Since the fragment data appears to be binary data, I have assumed that this is the C18 fragment.
+
+Note that this is one of the few fragments that cannot be found in the GitHub repository - there was no GitHub commit on this day.
 
 ### Fragment C19 (P10)
+* Chronological index: 19
+* Positional index: 10
+* Posted on: 2021-04-17
+* GitHub commits
+  * <https://github.com/TheMajorTechie/tmt-website/commit/304be8eb315b20e6c3b8773809ae538990f0e4e3>
+* Relevant URLs
+  * <http://whatif.themajortechie.com/the_reddest_herring.zip.010.zip>
+* Hints
+  * <https://www.fimfiction.net/group/215617/techies-alt-hunt-extravaganza/thread/467190/decipher-the-password>
+  * <https://www.fimfiction.net/blog/945232/decipher-the-password>
+  * <https://www.fimfiction.net/story/308542/617/what-if/sweetie-giraffe-went-technicolor>
+
+The hint was titled "Decipher the password.", and this time it straight up linked to the relevant file, named `the_reddest_herring.zip.010.zip`. Like fragment C16, this file is protected and requires a password to unlock.
+
+The hint also linked to the most recent chapter of TheMajorTechie's story  _What If..._, which included the cryptic image seen in the previous day's hint (fragment C18), along with the following instruction:
+
+    1stChar-Line_Shift-1/LOWER
+
+Since the hint is "Decipher the password.", evidently there is a password somewhere that has been enciphered. The only candidate I can think of for this is the slightly-obscured 15-character mystery string contained within the image.
+
+We'll take the elements of this instruction one-by-one:
+
+* `1stChar`: Evidently referring to the first character of the password, although for what reason I'm not sure. It implies we should take the first character of _something_, but I don't know what.
+* `Line_Shift`: Line shifting is a steganographic technique which can be used to encode small amounts of data in a large body of text; it works by making tiny variations in the vertical line spacing which won't be seen by a casual reader, but can be detected by the receiver by carefully measuring the spacing between each line.
+
+  Sadly, as cool as the technique is, I suspect it's not what the clue is referring to, as there hasn't been any body of text I've seen that could permit line shifting.
+* `1`: I suspect this is part of the previous element - ie. it's actually `Line_Shift-1` and indicates an amount to shift by.
+* `LOWER`: I would assume that this is an instruction to transform uppercase letters to lowercase.
 
 ### Fragment C20 (P32)
+* Chronological index: 20
+* Positional index: 32
+* Posted on: 2021-04-19
+* GitHub commits
+* Relevant URLs
+  * <https://whatif.themajortechie.com/32.ttf>
+  * <https://pastebin.com/rBFfkR1N>
+* Hints
+  * <https://www.fimfiction.net/group/215617/techies-alt-hunt-extravaganza/thread/467354/your-keyboard-is-your-friend>
+  * <https://www.fimfiction.net/blog/945506/your-keyboard-is-your-friend-have-a-font-to-snazzy-up-your-writing>
+
+Solution: The hint post provided a link to a TrueType Font file created by Techie.
+
+Loading the font file into a text editor and typing characters reveals that each character is mapped to a glyph, but not the glyph you would expect; typing `a` yields the glyph `N`, for example. This font therefore is therefore effectively a monoalphabetic substitution cipher, and it suggests that there is some sequence of characters that will map to a significant string.
+
+Some playing around with the font reveals that the string `abcdefghijklmnopqrstuvwxyz0123456789` translates to `Never_gonna_give_you_up_never_gonna_`, which are the words to the chorus of Rick Astley's "Never Gonna Give You Up", a meme song often referenced by TheMajorTechie. Other printable characters map to whole words of that chorus, such as "around and", "hurt", and "you", which suggests there is a sequence that generates the entire chorus.
+
+However, the Rick Astley portion is a red herring. Entering the string `ABCDEFGHIJKLMNOPQRSTUVWXYZ` yields the following glyph sequence:
+
+    o__/srBFnfkR__.cptmei_anb1
+
+The presence of a slash and a dot here led me to suspect a URL was embedded somehow and could be revealed with the correct sequence.
+
+Eventually, considering the hint post's hint led me to the answer:
+
+> Your keyboard is your friend.
+
+This led me to suspect that entering the QWERTY sequence would yield something. Sure enough, entering the string `QWERTYUIOPASDFGHJKLZXCVBNM` (the three rows of the QWERTY keyboard layout, left to right) yields the following glyph sequence:
+
+    pastebin.com/rBFfkR1n_____
+
+The trailing underscores are padding and can be discarded.
+
+In theory, visiting the URL should yield a Pastebin post containing fragment C20 - however, it turns out Techie made a mistake on this one, and used a lowercase n when he actually meant uppercase N. Therefore, the correct URL is <https://pastebin.com/rBFfkR1N>. Techie later issued a correction for this fragment.
 
 ### Fragment C21 (P11)
+* Chronological index: 21
+* Positional index: 11
+* Posted on: 2021-05-07
+* GitHub commits
+  * <https://github.com/TheMajorTechie/tmt-website/commit/0e6a1b49cf55eba5110fa171257f574ee44cbc0e>
+* Relevant URLs
+  * <https://whatif.themajortechie.com/>
+  * <https://whatif.themajortechie.com/the_reddest_herring.zip.011.7z>
+* Hints
+  * <https://www.fimfiction.net/blog/947923/new-setup>
+
+Techie took a break of a few weeks between this hint and the previous one.
+
+The hint post was titled "New setup. ;)". The post showed two photographs:
+
+* <https://i.ibb.co/dg8Tyxj/20210506-230208.jpg>
+* <https://i.ibb.co/cbTBKT7/20210506-230221.jpg>
+
+I couldn't see anything unusual in the image files so I believe these are just photographs.
+The first photograph shows what is presumably Techie's computer desk, with a two-monitor setup; the left monitor is showing YouTube's homepage, the right is showing Fimfiction. These images are too blurry to make out much information on the screens, so I doubt anything is hidden there.
+
+The second photograph shows a close-up of one of the items in the first photograph, a small sapling in a plant pot. The shape of the leaves suggest it is an oak sapling, which is further borne out by Techie's comment below it:
+
+> This little sapling's been growing from an acorn for almost a year now!
+
+Techie also added a simple hyperlink to [whatif.themajortechie.com][] titled "file 11???", which contained a link to a downloadable 7z archive file. As with previous such archives, it contains a file that cannot be extracted without a password.
 
 ### Fragment C22 (P31)
+* Chronological index: 22
+* Positional index: 31
+* Posted on: 2021-05-08
+* Hints
+  * <https://www.fimfiction.net/blog/948042/file-31>
+
+This fragment was posted directly on Techie's blog.
 
 ### Fragment C23 (P12)
+* Chronological index: 23
+* Positional index: 12
+* Posted on: 2021-05-09
+* Hints
+  * <https://www.fimfiction.net/blog/948156/i-ran-out-of-ideas-have-a-file-12>
+
+This fragment was also posted directly on Techie's blog. He claims to be running out of ideas on how to hide them.
 
 ### Fragment C24 (P30)
+* Chronological index: 24
+* Positional index: 30
+* Posted on: 2021-05-10
+* GitHub commits
+  * <https://github.com/TheMajorTechie/tmt-website/commit/b2223492b14d7c6ef633a25064f00e941b6ab197>
+* Relevant URLs
+  * <https://whatif.themajortechie.com/>
+  * <https://whatif.themajortechie.com/the_reddest_herring.zip.030.hex>
+* Hints
+  * <https://www.fimfiction.net/blog/948288/asdf>
+
+The hint for this fragment was simply titled "asdf". A new button labelled "asdf" was added to [whatif.themajortechie.com][] - it hyperlinks to a document fragment named `#the_reddest_herring.zip.030.hex`, but actually uses JavaScript to redirect the browser to the YouTube video for Rick Astley's "Never Gonna Give You Up", in what is presumably an effort to rickroll the user. I thought the "fragment" pun was quite clever.
+
+Downloading the file named `the_reddest_herring.zip.030.hex` yields the fragment.
 
 ### Fragment C25 (P13)
+* Chronological index: 25
+* Positional index: 13
+* Posted on: 2021-05-13
+* GitHub commits
+* Relevant URLs
+* Hints
+  * <https://www.fimfiction.net/blog/948671/a-teaser-a-hint>
+
+The hint post for this fragment contained a large PNG image resembling an old-fashioned vector game, consisting of a black background with glowing green lines that draw out a path receding toward the horizon, with trees and bushes sprinkled around. The filename of the image is "glowypath.png", which seems accurate. I couldn't find anything unusual hidden in the image file itself.
+
+The blog post tagged the story [Splintershard](https://www.fimfiction.net/story/464577/splintershard), a sci-fi adventure story written by TheMajorTechie.
+
+Images with a lot of blank space always make me suspicious, so I loaded it in an image editor to take a closer look. However, I couldn't find anything unusual in the image either.
 
 ### Fragment C26 (P29)
+I abandoned the search at this point, as I couldn't make any headway on cracking the password-protected files.
 
 ### Fragment C27 (P14)
 
